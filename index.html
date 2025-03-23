@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Income and Investment Tracker</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div id="pageSwitcher">
+      <select id="pageSelect" onchange="navigateToPage()">
+        <option value="dashboard">Dashboard Page</option>
+        <option value="income">Income Page</option>
+        <option value="investment">Investment Page</option>
+        <option value="spending">Spending Page</option>
+      </select>
+    </div>
+
+    <div id="dashboardPage">
+      <h1>dashboard Tracker</h1>
+      <!-- <div class="container">
+        <div class="section" id="section1">
+          <canvas id="incomeChart"></canvas>
+        </div>
+      </div> -->
+    </div>
+
+    <!---------------------------------------------- Income Page ---------------------------------------------------->
+
+    <div id="incomePage">
+      <h1>Income Tracker</h1>
+      <div class="container">
+        <!-- Income Table -->
+        <div class="section" id="section1">
+          <h2>Income Table</h2>
+          <table id="incomeTable">
+            <thead>
+              <tr style="background-color: #2d545e">
+                <th style="color: #0a2540">Month</th>
+                <th style="color: #0a2540">Income ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>January</td>
+                <td><input class="input" type="number" id="incomeJan" /></td>
+              </tr>
+              <tr>
+                <td>February</td>
+                <td><input class="input" type="number" id="incomeFeb" /></td>
+              </tr>
+              <tr>
+                <td>March</td>
+                <td><input class="input" type="number" id="incomeMar" /></td>
+              </tr>
+              <tr>
+                <td>April</td>
+                <td><input class="input" type="number" id="incomeApr" /></td>
+              </tr>
+              <tr>
+                <td>May</td>
+                <td><input class="input" type="number" id="incomeMay" /></td>
+              </tr>
+              <tr>
+                <td>June</td>
+                <td><input class="input" type="number" id="incomeJun" /></td>
+              </tr>
+              <tr>
+                <td>July</td>
+                <td><input class="input" type="number" id="incomeJul" /></td>
+              </tr>
+              <tr>
+                <td>August</td>
+                <td><input class="input" type="number" id="incomeAug" /></td>
+              </tr>
+              <tr>
+                <td>September</td>
+                <td><input class="input" type="number" id="incomeSep" /></td>
+              </tr>
+              <tr>
+                <td>October</td>
+                <td><input class="input" type="number" id="incomeOct" /></td>
+              </tr>
+              <tr>
+                <td>November</td>
+                <td><input class="input" type="number" id="incomeNov" /></td>
+              </tr>
+              <tr>
+                <td>December</td>
+                <td><input class="input" type="number" id="incomeDec" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <button onclick="updateIncomeChart()">Update Income Chart</button>
+          <!-- Download and Upload Buttons for Income -->
+
+          <button onclick="downloadIncomeData()">Download Income Data</button>
+          <input
+            type="file"
+            id="uploadIncomeInput"
+            style="display: none"
+            onchange="uploadIncomeData(event)"
+          />
+          <button
+            onclick="document.getElementById('uploadIncomeInput').click()"
+          >
+            Upload Income Data
+          </button>
+        </div>
+
+        <!-- Income Chart -->
+        <div class="section" id="section2">
+          <h2>Income Chart</h2>
+          <canvas id="incomeChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!--------------------------------------- Investment Page ---------------------------------------------------->
+    <div id="investmentPage" style="display: none">
+      <h1>Investment Tracker</h1>
+
+      <div class="container">
+        <!-- Investment Table -->
+        <div class="section" id="section1">
+          <h2>Investment Table</h2>
+          <table id="investmentTable">
+            <thead>
+              <tr style="background-color: #2d545e">
+                <th style="color: #0a2540">Month</th>
+                <th style="color: #0a2540">Crypto ($)</th>
+                <th style="color: #0a2540">Trading212 ($)</th>
+                <th style="color: #0a2540">BT ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>January</td>
+                <td><input class="input" type="number" id="cryptoJan" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Jan" />
+                </td>
+                <td><input class="input" type="number" id="btJan" /></td>
+              </tr>
+              <tr>
+                <td>February</td>
+                <td><input class="input" type="number" id="cryptoFeb" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Feb" />
+                </td>
+                <td><input class="input" type="number" id="btFeb" /></td>
+              </tr>
+              <tr>
+                <td>March</td>
+                <td><input class="input" type="number" id="cryptoMar" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Mar" />
+                </td>
+                <td><input class="input" type="number" id="btMar" /></td>
+              </tr>
+              <tr>
+                <td>April</td>
+                <td><input class="input" type="number" id="cryptoApr" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Apr" />
+                </td>
+                <td><input class="input" type="number" id="btApr" /></td>
+              </tr>
+              <tr>
+                <td>May</td>
+                <td><input class="input" type="number" id="cryptoMay" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212May" />
+                </td>
+                <td><input class="input" type="number" id="btMay" /></td>
+              </tr>
+              <tr>
+                <td>June</td>
+                <td><input class="input" type="number" id="cryptoJun" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Jun" />
+                </td>
+                <td><input class="input" type="number" id="btJun" /></td>
+              </tr>
+              <tr>
+                <td>July</td>
+                <td><input class="input" type="number" id="cryptoJul" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Jul" />
+                </td>
+                <td><input class="input" type="number" id="btJul" /></td>
+              </tr>
+              <tr>
+                <td>August</td>
+                <td><input class="input" type="number" id="cryptoAug" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Aug" />
+                </td>
+                <td><input class="input" type="number" id="btAug" /></td>
+              </tr>
+              <tr>
+                <td>September</td>
+                <td><input class="input" type="number" id="cryptoSep" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Sep" />
+                </td>
+                <td><input class="input" type="number" id="btSep" /></td>
+              </tr>
+              <tr>
+                <td>October</td>
+                <td><input class="input" type="number" id="cryptoOct" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Oct" />
+                </td>
+                <td><input class="input" type="number" id="btOct" /></td>
+              </tr>
+              <tr>
+                <td>November</td>
+                <td><input class="input" type="number" id="cryptoNov" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Nov" />
+                </td>
+                <td><input class="input" type="number" id="btNov" /></td>
+              </tr>
+              <tr>
+                <td>December</td>
+                <td><input class="input" type="number" id="cryptoDec" /></td>
+                <td>
+                  <input class="input" type="number" id="trading212Dec" />
+                </td>
+                <td><input class="input" type="number" id="btDec" /></td>
+              </tr>
+              <tr style="background-color: #2d545e">
+                <td style="color: #0a2540"><b>Total P/L</b></td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="plcrypto"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="pltrading212"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="plbt"
+                  /></b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button onclick="updateInvestmentChart()">
+            Update Investment Chart
+          </button>
+          <!-- Download and Upload Buttons -->
+
+          <button onclick="downloadInvestmentData()">
+            Download Investment Data
+          </button>
+          <input
+            type="file"
+            id="uploadInput"
+            style="display: none"
+            onchange="uploadInvestmentData(event)"
+          />
+          <button onclick="document.getElementById('uploadInput').click()">
+            Upload Investment Data
+          </button>
+        </div>
+
+        <!-- Investment Chart -->
+        <div class="section" id="section2">
+          <h2>Investment Chart</h2>
+          <canvas id="investmentChart"></canvas>
+        </div>
+      </div>
+
+      <button onclick="navigateToIncomePage()">Back to Income Page</button>
+    </div>
+
+    <!--------------------------------------- Spenging Page ---------------------------------------------------->
+    <div id="spendingPage" style="display: none">
+      <h1>Spending Tracker</h1>
+      <div class="container">
+        <div class="section" id="section1">
+          <h2>Spending Table</h2>
+          <table id="spendingTable">
+            <thead>
+              <tr style="background-color: #2d545e">
+                <th style="color: #0a2540">Month</th>
+                <th style="color: #0a2540">Fuel</th>
+                <th style="color: #0a2540">Health</th>
+                <th style="color: #0a2540">General</th>
+                <th style="color: #0a2540">Groceries</th>
+                <th style="color: #0a2540">Travel</th>
+                <th style="color: #0a2540">Coffee</th>
+                <th style="color: #0a2540">Clothes</th>
+                <th style="color: #0a2540">Misc</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Breakfast</td>
+                <td><input class="input" type="number" id="fuelJan" /></td>
+                <td><input class="input" type="number" id="healthJan" /></td>
+                <td><input class="input" type="number" id="generalJan" /></td>
+                <td><input class="input" type="number" id="groceriesJan" /></td>
+                <td><input class="input" type="number" id="travelJan" /></td>
+                <td><input class="input" type="number" id="coffeeJan" /></td>
+                <td><input class="input" type="number" id="clothesJan" /></td>
+                <td><input class="input" type="number" id="miscJan" /></td>
+              </tr>
+              <tr>
+                <td>February</td>
+
+                <td><input class="input" type="number" id="fuelFeb" /></td>
+                <td><input class="input" type="number" id="healthFeb" /></td>
+                <td><input class="input" type="number" id="generalFeb" /></td>
+                <td><input class="input" type="number" id="groceriesFeb" /></td>
+                <td><input class="input" type="number" id="travelFeb" /></td>
+                <td><input class="input" type="number" id="coffeeFeb" /></td>
+                <td><input class="input" type="number" id="clothesFeb" /></td>
+                <td><input class="input" type="number" id="miscFeb" /></td>
+              </tr>
+              <tr>
+                <td>March</td>
+
+                <td><input class="input" type="number" id="fuelMar" /></td>
+                <td><input class="input" type="number" id="healthMar" /></td>
+                <td><input class="input" type="number" id="generalMar" /></td>
+                <td><input class="input" type="number" id="groceriesMar" /></td>
+                <td><input class="input" type="number" id="travelMar" /></td>
+                <td><input class="input" type="number" id="coffeeMar" /></td>
+                <td><input class="input" type="number" id="clothesMar" /></td>
+                <td><input class="input" type="number" id="miscMar" /></td>
+                <
+              </tr>
+              <tr>
+                <td>April</td>
+
+                <td><input class="input" type="number" id="fuelApr" /></td>
+                <td><input class="input" type="number" id="healthApr" /></td>
+                <td><input class="input" type="number" id="generalApr" /></td>
+                <td><input class="input" type="number" id="groceriesApr" /></td>
+                <td><input class="input" type="number" id="travelApr" /></td>
+                <td><input class="input" type="number" id="coffeeApr" /></td>
+                <td><input class="input" type="number" id="clothesApr" /></td>
+                <td><input class="input" type="number" id="miscApr" /></td>
+              </tr>
+              <tr>
+                <td>May</td>
+
+                <td><input class="input" type="number" id="fuelMay" /></td>
+                <td><input class="input" type="number" id="healthMay" /></td>
+                <td><input class="input" type="number" id="generalMay" /></td>
+                <td><input class="input" type="number" id="groceriesMay" /></td>
+                <td><input class="input" type="number" id="travelMay" /></td>
+                <td><input class="input" type="number" id="coffeeMay" /></td>
+                <td><input class="input" type="number" id="clothesMay" /></td>
+                <td><input class="input" type="number" id="miscMay" /></td>
+              </tr>
+              <tr>
+                <td>June</td>
+
+                <td><input class="input" type="number" id="fuelJun" /></td>
+                <td><input class="input" type="number" id="healthJun" /></td>
+                <td><input class="input" type="number" id="generalJun" /></td>
+                <td><input class="input" type="number" id="groceriesJun" /></td>
+                <td><input class="input" type="number" id="travelJun" /></td>
+                <td><input class="input" type="number" id="coffeeJun" /></td>
+                <td><input class="input" type="number" id="clothesJun" /></td>
+                <td><input class="input" type="number" id="miscJun" /></td>
+              </tr>
+              <tr>
+                <td>July</td>
+
+                <td><input class="input" type="number" id="fuelJul" /></td>
+                <td><input class="input" type="number" id="healthJul" /></td>
+                <td><input class="input" type="number" id="generalJul" /></td>
+                <td><input class="input" type="number" id="groceriesJul" /></td>
+                <td><input class="input" type="number" id="travelJul" /></td>
+                <td><input class="input" type="number" id="coffeeJul" /></td>
+                <td><input class="input" type="number" id="clothesJul" /></td>
+                <td><input class="input" type="number" id="miscJul" /></td>
+              </tr>
+              <tr>
+                <td>August</td>
+
+                <td><input class="input" type="number" id="fuelAug" /></td>
+                <td><input class="input" type="number" id="healthAug" /></td>
+                <td><input class="input" type="number" id="generalAug" /></td>
+                <td><input class="input" type="number" id="groceriesAug" /></td>
+                <td><input class="input" type="number" id="travelAug" /></td>
+                <td><input class="input" type="number" id="coffeeAug" /></td>
+                <td><input class="input" type="number" id="clothesAug" /></td>
+                <td><input class="input" type="number" id="miscAug" /></td>
+                <
+              </tr>
+              <tr>
+                <td>September</td>
+
+                <td><input class="input" type="number" id="fuelSep" /></td>
+                <td><input class="input" type="number" id="healthSep" /></td>
+                <td><input class="input" type="number" id="generalSep" /></td>
+                <td><input class="input" type="number" id="groceriesSep" /></td>
+                <td><input class="input" type="number" id="travelSep" /></td>
+                <td><input class="input" type="number" id="coffeeSep" /></td>
+                <td><input class="input" type="number" id="clothesSep" /></td>
+                <td><input class="input" type="number" id="miscSep" /></td>
+                <
+              </tr>
+              <tr>
+                <td>October</td>
+                <
+
+                <td><input class="input" type="number" id="fuelOct" /></td>
+                <td><input class="input" type="number" id="healthOct" /></td>
+                <td><input class="input" type="number" id="generalOct" /></td>
+                <td><input class="input" type="number" id="groceriesOct" /></td>
+                <td><input class="input" type="number" id="travelOct" /></td>
+                <td><input class="input" type="number" id="coffeeOct" /></td>
+                <td><input class="input" type="number" id="clothesOct" /></td>
+                <td><input class="input" type="number" id="miscOct" /></td>
+                <
+              </tr>
+              <tr>
+                <td>November</td>
+
+                <td><input class="input" type="number" id="fuelNov" /></td>
+                <td><input class="input" type="number" id="healthNov" /></td>
+                <td><input class="input" type="number" id="generalNov" /></td>
+                <td><input class="input" type="number" id="groceriesNov" /></td>
+                <td><input class="input" type="number" id="travelNov" /></td>
+                <td><input class="input" type="number" id="coffeeNov" /></td>
+                <td><input class="input" type="number" id="clothesNov" /></td>
+                <td><input class="input" type="number" id="miscNov" /></td>
+              </tr>
+              <tr>
+                <td>December</td>
+
+                <td><input class="input" type="number" id="fuelDec" /></td>
+                <td><input class="input" type="number" id="healthDec" /></td>
+                <td><input class="input" type="number" id="generalDec" /></td>
+                <td><input class="input" type="number" id="groceriesDec" /></td>
+                <td><input class="input" type="number" id="travelDec" /></td>
+                <td><input class="input" type="number" id="coffeeDec" /></td>
+                <td><input class="input" type="number" id="clothesDec" /></td>
+                <td><input class="input" type="number" id="miscDec" /></td>
+              </tr>
+              <tr style="background-color: #2d545e">
+                <td style="color: #0a2540"><b>Total</b></td>
+                <td>
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalFuel"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalHealth"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalGeneral"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalGroceries"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalTravel"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalCoffee"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalClothes"
+                  /></b>
+                </td>
+                <td style="color: #0a2540">
+                  <b
+                    ><input
+                      style="background-color: #2d545e"
+                      class="input"
+                      type="number"
+                      id="totalMisc"
+                  /></b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button onclick="updateSpendingChart()">Update Spending Chart</button>
+          <!-- Download and Upload Buttons -->
+
+          <button onclick="downloadSpendingData()">
+            Download Spendning Data
+          </button>
+          <input
+            type="file"
+            id="uploadInput"
+            style="display: none"
+            onchange="uploadSpendingData(event)"
+          />
+          <button onclick="document.getElementById('uploadInput').click()">
+            Upload Spending Data
+          </button>
+        </div>
+
+        <!-- Spending Chart -->
+        <!-- <div class="section" id="section2">
+          <h2>Spending Chart</h2>
+          <canvas id="spendingChart"></canvas>
+        </div> -->
+      </div>
+
+      <button onclick="navigateToIncomePage()">Back to Income Page</button>
+    </div>
+    <script src="script.js"></script>
+    <script src="income.js"></script>
+    <script src="invest.js"></script>
+    <script src="spending.js"></script>
+  </body>
+</html>
